@@ -6,13 +6,14 @@
 package com.ml.multichainclient.example;
 
 import com.ml.multichainclient.util.CommandManagerUtil;
+
 import java.util.ArrayList;
+
 import multichain.command.CommandElt;
 import multichain.command.CommandManager;
 import multichain.command.MultichainException;
 
 /**
- *
  * @author Liudan_Luo
  */
 public class ListAddressExample {
@@ -29,8 +30,8 @@ public class ListAddressExample {
         //class java.lang.String
         try {
             addressResult = (ArrayList) cm.invoke(CommandElt.GETADDRESSES);
-            for(Object add:addressResult){
-                System.out.println("Address:"+add.toString());
+            for (Object add : addressResult) {
+                System.out.println("Address:" + add.toString());
             }
         } catch (MultichainException e) {
             e.printStackTrace();

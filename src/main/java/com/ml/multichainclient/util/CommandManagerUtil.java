@@ -8,7 +8,6 @@ package com.ml.multichainclient.util;
 import multichain.command.CommandManager;
 
 /**
- *
  * @author Liudan_Luo
  */
 public class CommandManagerUtil {
