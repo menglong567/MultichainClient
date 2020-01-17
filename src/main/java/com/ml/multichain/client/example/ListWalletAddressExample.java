@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ml.multichainclient.example;
+package com.ml.multichain.client.example;
 
-import com.ml.multichainclient.util.CommandManagerUtil;
+import com.ml.multichain.client.util.CommandManagerUtil;
 
 import java.util.ArrayList;
 
@@ -16,9 +16,9 @@ import multichain.command.MultichainException;
 /**
  * @author Liudan_Luo
  */
-public class ListAddressExample {
+public class ListWalletAddressExample {
     public static void main(String[] args) {
-        CommandManager cm = CommandManagerUtil.getInstance().getCommandManager("10.0.75.2", "31001", "multichainrpc", "7eCM2BM7eGuoCsbAyJfVTjULG4brSCFDZrjtekRiXMFY");
+        CommandManager cm = CommandManagerUtil.getInstance().getCommandManager("192.168.1.105", "31005", "multichainrpc", "DaWnto6QrqL1fgFshxHLAXcYcmULR9F7c8qAsAaiQdcB");
 
         // localhost is the IP used by Multichain
         // 6824 is, here, the port used by the BlockChain, corresponding of the value of default-rpc-port in the file params.dat 
@@ -29,7 +29,7 @@ public class ListAddressExample {
         //class java.util.ArrayList
         //class java.lang.String
         try {
-            addressResult = (ArrayList) cm.invoke(CommandElt.GETADDRESSES);
+            addressResult = (ArrayList) cm.invoke(CommandElt.GETADDRESSES);//(verbose is false).
             for (Object add : addressResult) {
                 System.out.println("Address:" + add.toString());
             }
@@ -43,12 +43,11 @@ public class ListAddressExample {
         //class java.util.ArrayList
         //class multichain.object.Address
         try {
-            addressResult = (ArrayList) cm.invoke(CommandElt.GETADDRESSES, true);
+            addressResult = (ArrayList) cm.invoke(CommandElt.GETADDRESSES, true);//(verbose is true).
         } catch (MultichainException e) {
             e.printStackTrace();
             e.getMessage();
             e.getReason();
         }
-
     }
 }
