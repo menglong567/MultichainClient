@@ -122,9 +122,6 @@ public class PermissionGrantUtil {
         try {
             //listpermissions send 12rDdFmMLyprVdwL4SUBTqN8t7sabYoA2yW6r3 true
             list = (List<Permission>) cm.invoke(CommandElt.LISTPERMISSIONS, permissionIdentifier, wallletAddresses, verbose);
-            for (Permission permission:list){
-                System.out.println(permission.toString());
-            }
         } catch (MultichainException e) {
             e.printStackTrace();
             //should return meaningful message to the front-end

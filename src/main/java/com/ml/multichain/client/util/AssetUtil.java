@@ -31,7 +31,7 @@ public class AssetUtil {
      * @param wallletAddress
      * @param assetName
      * @param quantity
-     * @param units
+     * @param units the minimal value to send
      * @param open
      * @param restrict
      * @return
@@ -105,7 +105,7 @@ public class AssetUtil {
 
     /**
      * @param cm
-     * @param amount
+     * @param amount if the asset units is 0.01 and you send for example 1.001 then only 1 will be sent
      * @param assetIdentifier
      * @param walletAddress
      * @return
@@ -113,7 +113,7 @@ public class AssetUtil {
     public String sendAssetToWalletAddress(CommandManager cm, String walletAddress, String assetIdentifier, String amount) {
         String result;
         try {
-            result = (String) cm.invoke(CommandElt.SENDASSET, walletAddress, assetIdentifier, amount);
+            result = (String) cm.invoke(CommandElt.SENDASSET, walletAddress, assetIdentifier, Float.parseFloat(amount.trim()));
         } catch (MultichainException e) {
             e.printStackTrace();
             //should return meaningful message to the front-end

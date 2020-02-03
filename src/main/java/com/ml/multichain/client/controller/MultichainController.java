@@ -478,7 +478,7 @@ public class MultichainController {
      * @param rpcPort
      * @param rpcUser
      * @param rpcUserPwd
-     * @param walletAddress
+     * @param walletAddress this address should have receive permission to receive asset
      * @param assetIdentifier
      * @param amount
      * @return
@@ -508,12 +508,12 @@ public class MultichainController {
             LOGGER.error("amount is null");
             return GSonUtil.getInstance().object2Json(new MultichainOperationResult("amount is null", false));
         }
-        if (CommonUtil.getInstance().isValidDouble(amount)) {
+        if (!CommonUtil.getInstance().isValidDouble(amount.trim())) {
             LOGGER.error(amount + " is not a valid double");
             return GSonUtil.getInstance().object2Json(new MultichainOperationResult(amount + " is not a valid double", false));
         }
         CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
-        return AssetUtil.getInstance().sendAssetToWalletAddress(cm, walletAddress, assetIdentifier, amount);
+        return AssetUtil.getInstance().sendAssetToWalletAddress(cm, walletAddress, assetIdentifier, amount.trim());
     }
 
 
