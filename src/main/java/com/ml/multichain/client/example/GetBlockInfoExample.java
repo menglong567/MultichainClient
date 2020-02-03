@@ -6,8 +6,9 @@ import multichain.command.CommandManager;
 import multichain.command.MultichainException;
 import multichain.object.Block;
 
-import java.util.List;
-
+/**
+ * @author mengl
+ */
 public class GetBlockInfoExample {
     public static void main(String[] args) {
         CommandManager cm = CommandManagerUtil.getInstance().getCommandManager("192.168.1.105", "31005", "multichainrpc", "DaWnto6QrqL1fgFshxHLAXcYcmULR9F7c8qAsAaiQdcB");
