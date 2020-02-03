@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class MultichainBlockInfoController {
-    private static Logger LOGGER = LoggerFactory.getLogger(MultichainBlockInfoController.class);
+public class MultichainController {
+    private static Logger LOGGER = LoggerFactory.getLogger(MultichainController.class);
 
     @RequestMapping(value = "/getBlockInfo/{height}", method = RequestMethod.GET)
     @ResponseBody
