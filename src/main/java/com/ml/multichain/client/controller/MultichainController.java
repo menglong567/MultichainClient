@@ -445,6 +445,10 @@ public class MultichainController {
         if (!varifyResult.isResult()) {//if varify failed
             return GSonUtil.getInstance().object2Json(varifyResult);
         }
+        if (walletAddress == null || walletAddress.trim().isEmpty()) {
+            LOGGER.error("walletAddress is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("walletAddress is null", false));
+        }
         CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
         return AssetUtil.getInstance().getWalletAddressBalances(cm, walletAddress);
     }
