@@ -30,15 +30,17 @@ public class StreamUitl {
      * query all streams
      *
      * @param cm
+     * @param streamIdentifiers
+     * @param verbose
      * @return
      */
-    public String getAllStreams(CommandManager cm) {
+    public String getAllStreams(CommandManager cm, String streamIdentifiers, String verbose) {
         // localhost is the IP used by Multichain
         // 6824 is, here, the port used by the BlockChain, corresponding of the value of default-rpc-port in the file params.dat
         // multichainrpc and 73oYQWzx45h... are login and password to access to RPC commands, values can be found in the file multichain.conf
         List<Stream> streams = new ArrayList<>();
         try {
-            streams = (List<Stream>) cm.invoke(CommandElt.LISTSTREAMS);
+            streams = (List<Stream>) cm.invoke(CommandElt.LISTSTREAMS, streamIdentifiers, Boolean.valueOf(verbose.trim()));
         } catch (MultichainException e) {
             e.printStackTrace();
             //should return meaningful message to the front-end
@@ -78,7 +80,7 @@ public class StreamUitl {
      * @param limit
      * @return
      */
-    public String getStreamItems(CommandManager cm, String streamidentifier,boolean verbose,int limit) {
+    public String getStreamItems(CommandManager cm, String streamidentifier, boolean verbose, int limit) {
         List<StreamKeyItem> items = new ArrayList<>();
         try {
             items = (List<StreamKeyItem>) cm.invoke(CommandElt.LISTSTREAMITEMS, streamidentifier, verbose, limit, 0);

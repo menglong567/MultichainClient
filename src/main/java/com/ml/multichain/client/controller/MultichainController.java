@@ -57,18 +57,40 @@ public class MultichainController {
         return BlockInfoUtil.getInstance().getBlockInfo(cm, blockHeight.trim());
     }
 
+    /**
+     * @param hostIp
+     * @param rpcPort
+     * @param rpcUser
+     * @param rpcUserPwd
+     * @param streamIdentifiers a stream name, ref or creation txid in streams to retrieve information about one stream only, an array thereof for multiple streams, or * for all streams
+     * @param verbose
+     * @return
+     */
     @RequestMapping(value = "/getAllStreamsForm", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
     @ResponseBody
     public String getAllStreamForm(@RequestParam(value = "hostIp", required = true) String hostIp,
                                    @RequestParam(value = "rpcPort", required = true) String rpcPort,
                                    @RequestParam(value = "rpcUser", required = true) String rpcUser,
-                                   @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd) {
+                                   @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
+                                   @RequestParam(value = "streamIdentifiers", required = true) String streamIdentifiers,
+                                   @RequestParam(value = "verbose", required = true) String verbose) {
         MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
         if (!varifyResult.isResult()) {//if varify failed
             return GSonUtil.getInstance().object2Json(varifyResult);
         }
+        if (streamIdentifiers == null || streamIdentifiers.isEmpty()) {
+            LOGGER.error("streamIdentifiers is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("streamIdentifiers is null", false));
+        }
+        if (verbose == null || verbose.isEmpty()) {
+            LOGGER.error("verbose is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("verbose is null", false));
+        }
+        if (!verbose.trim().equalsIgnoreCase("true") && !verbose.trim().equalsIgnoreCase("false")) {
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult(verbose + " is not a valid String value to represent a boolean, for example:true/false", false));
+        }
         CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
-        return StreamUitl.getInstance().getAllStreams(cm);
+        return StreamUitl.getInstance().getAllStreams(cm, streamIdentifiers, verbose);
     }
 
     /**
@@ -98,15 +120,23 @@ public class MultichainController {
             LOGGER.error("streamidentifier is null");
             return GSonUtil.getInstance().object2Json(new MultichainOperationResult("streamidentifier is null", false));
         }
-        if (!verbose.equalsIgnoreCase("true") && !verbose.equalsIgnoreCase("false")) {
+        if (verbose == null || verbose.isEmpty()) {
+            LOGGER.error("verbose is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("verbose is null", false));
+        }
+        if (!verbose.trim().equalsIgnoreCase("true") && !verbose.trim().equalsIgnoreCase("false")) {
             return GSonUtil.getInstance().object2Json(new MultichainOperationResult(verbose + " is not a valid String value to represent a boolean, for example:true/false", false));
+        }
+        if (limit == null || limit.isEmpty()) {
+            LOGGER.error("limit is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("limit is null", false));
         }
         if (!CommonUtil.getInstance().isInteger(limit.trim())) {//not a valid number
             LOGGER.error(limit + " is not a valid number");
             return GSonUtil.getInstance().object2Json(new MultichainOperationResult(limit + " is not a valid number", false));
         }
         CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
-        return StreamUitl.getInstance().getStreamItems(cm, streamidentifier.trim(), Boolean.valueOf(verbose), Integer.parseInt(limit));
+        return StreamUitl.getInstance().getStreamItems(cm, streamidentifier.trim(), Boolean.valueOf(verbose.trim()), Integer.parseInt(limit.trim()));
     }
 
 
@@ -482,7 +512,7 @@ public class MultichainController {
      * @param rpcPort
      * @param rpcUser
      * @param rpcUserPwd
-     * @param walletAddress this address should have receive permission to receive asset
+     * @param walletAddress   this address should have receive permission to receive asset
      * @param assetIdentifier
      * @param amount
      * @return
