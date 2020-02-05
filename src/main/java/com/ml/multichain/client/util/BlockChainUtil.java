@@ -12,6 +12,9 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * @author mengl
+ */
 public class BlockChainUtil {
     private static BlockChainUtil instance = new BlockChainUtil();
     private static Logger LOGGER = LoggerFactory.getLogger(BlockChainUtil.class);
@@ -99,26 +102,26 @@ public class BlockChainUtil {
 
     /**
      * Returns general information about this node and blockchain
+     *
      * @param cm
      * @return
      */
-    public String getBlockChainInfo(CommandManager cm){
+    public String getBlockChainInfo(CommandManager cm) {
         HashMap<String, Object> infos = new HashMap<String, Object>();
         try {
             infos = (HashMap<String, Object>) cm.invoke(CommandElt.GETINFO);
         } catch (MultichainException e) {
             e.printStackTrace();
-            return e.getMessage();//should return meaningful message to the front-end
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult(e.getMessage(), false));
         }
         return GSonUtil.getInstance().object2Json(infos);
     }
 
     /**
-     *
      * @param cm
      * @return
      */
-    public String getPeerInfo(CommandManager cm){
+    public String getPeerInfo(CommandManager cm) {
         List<PeerInfo> peerInfos = null;
         try {
             peerInfos = (List<PeerInfo>) cm.invoke(CommandElt.GETPEERINFO);

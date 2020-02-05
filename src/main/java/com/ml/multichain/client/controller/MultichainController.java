@@ -62,6 +62,112 @@ public class MultichainController {
      * @param rpcPort
      * @param rpcUser
      * @param rpcUserPwd
+     * @return
+     */
+    @RequestMapping(value = "/getBlockCountForm", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
+    @ResponseBody
+    public String getBlockCountForm(@RequestParam(value = "hostIp", required = true) String hostIp,
+                                    @RequestParam(value = "rpcPort", required = true) String rpcPort,
+                                    @RequestParam(value = "rpcUser", required = true) String rpcUser,
+                                    @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd) {
+        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!varifyResult.isResult()) {//if varify failed
+            return GSonUtil.getInstance().object2Json(varifyResult);
+        }
+        CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
+        return BlockInfoUtil.getInstance().getBlockCount(cm);
+    }
+
+    /**
+     * Returns information about the last or recent blocks in the active chain. Omit skip or set to 0 for information about the most recent block.
+     *
+     * @param hostIp
+     * @param rpcPort
+     * @param rpcUser
+     * @param rpcUserPwd
+     * @return
+     */
+    @RequestMapping(value = "/getLastBlockInfoForm", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
+    @ResponseBody
+    public String getLastBlockInfoForm(@RequestParam(value = "hostIp", required = true) String hostIp,
+                                       @RequestParam(value = "rpcPort", required = true) String rpcPort,
+                                       @RequestParam(value = "rpcUser", required = true) String rpcUser,
+                                       @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd) {
+        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!varifyResult.isResult()) {//if varify failed
+            return GSonUtil.getInstance().object2Json(varifyResult);
+        }
+        CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
+        return BlockInfoUtil.getInstance().getLastBlockInfo(cm);
+    }
+
+    @RequestMapping(value = "/getBlockHashForm", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
+    @ResponseBody
+    public String getBlockHashForm(@RequestParam(value = "hostIp", required = true) String hostIp,
+                                   @RequestParam(value = "rpcPort", required = true) String rpcPort,
+                                   @RequestParam(value = "rpcUser", required = true) String rpcUser,
+                                   @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
+                                   @RequestParam(value = "blockHeight", required = true) String blockHeight) {
+        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!varifyResult.isResult()) {//if varify failed
+            return GSonUtil.getInstance().object2Json(varifyResult);
+        }
+        if (blockHeight == null || blockHeight.isEmpty()) {
+            LOGGER.error("blockHeight is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("blockHeight is null", false));
+        }
+        if (!CommonUtil.getInstance().isInteger(blockHeight.trim())) {//not a valid number
+            LOGGER.error(blockHeight + " is not a valid number");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult(blockHeight + " is not a valid number", false));
+        }
+        CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
+        return BlockInfoUtil.getInstance().getBlockHash(cm, blockHeight);
+    }
+
+    /**
+     * Returns information about the blocks specified, on the active chain only. The blocks parameter can contain a comma-delimited list or
+     * array of block heights, hashes, height ranges (e.g. 100-200) or -n for the most recent n blocks
+     *
+     * @param hostIp
+     * @param rpcPort
+     * @param rpcUser
+     * @param rpcUserPwd
+     * @param blockIdentifiers
+     * @param verbose
+     * @return
+     */
+    @RequestMapping(value = "/listBlocksForm", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
+    @ResponseBody
+    public String listBlocksForm(@RequestParam(value = "hostIp", required = true) String hostIp,
+                                 @RequestParam(value = "rpcPort", required = true) String rpcPort,
+                                 @RequestParam(value = "rpcUser", required = true) String rpcUser,
+                                 @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
+                                 @RequestParam(value = "blockIdentifiers", required = true) String blockIdentifiers,
+                                 @RequestParam(value = "verbose", required = true) String verbose) {
+        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!varifyResult.isResult()) {//if varify failed
+            return GSonUtil.getInstance().object2Json(varifyResult);
+        }
+        if (blockIdentifiers == null || blockIdentifiers.isEmpty()) {
+            LOGGER.error("blockIdentifiers is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("blockIdentifiers is null", false));
+        }
+        if (verbose == null || verbose.isEmpty()) {
+            LOGGER.error("verbose is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("verbose is null", false));
+        }
+        if (!verbose.trim().equalsIgnoreCase("true") && !verbose.trim().equalsIgnoreCase("false")) {
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult(verbose + " is not a valid String value to represent a boolean, for example:true/false", false));
+        }
+        CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
+        return BlockInfoUtil.getInstance().listBlocks(cm, blockIdentifiers, verbose);
+    }
+
+    /**
+     * @param hostIp
+     * @param rpcPort
+     * @param rpcUser
+     * @param rpcUserPwd
      * @param streamIdentifiers a stream name, ref or creation txid in streams to retrieve information about one stream only, an array thereof for multiple streams, or * for all streams
      * @param verbose
      * @return
