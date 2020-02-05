@@ -6,6 +6,7 @@ import multichain.command.CommandManager;
 import multichain.command.MultichainException;
 import multichain.object.Address;
 import multichain.object.MemPoolInfo;
+import multichain.object.NetworkInfo;
 import multichain.object.PeerInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -148,5 +149,21 @@ public class BlockChainUtil {
             return GSonUtil.getInstance().object2Json(new MultichainOperationResult(e.getMessage(), false));
         }
         return GSonUtil.getInstance().object2Json(memPoolInfo);
+    }
+
+    /**
+     * @param cm
+     * @return
+     */
+    public String getNetworkInfo(CommandManager cm) {
+        NetworkInfo networkInfo = null;
+        try {
+            networkInfo = (NetworkInfo) cm.invoke(CommandElt.GETNETWORKINFO);
+        } catch (MultichainException e) {
+            e.printStackTrace();
+            //should return meaningful message to the front-end
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult(e.getMessage(), false));
+        }
+        return GSonUtil.getInstance().object2Json(networkInfo);
     }
 }
