@@ -172,6 +172,7 @@ public class AssetUtil {
 
     /**
      * query balances for wallet address
+     * Returns a list of all the asset balances for address in this node’s wallet
      *
      * @param cm
      * @param walletAddress
