@@ -267,6 +267,24 @@ public class MultichainController {
         return StreamUitl.getInstance().subscribeStream(cm, streamidentifier.trim());
     }
 
+    @RequestMapping(value = "/subscribeAssetForm", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
+    @ResponseBody
+    public String subscribeAssetForm(@RequestParam(value = "hostIp", required = true) String hostIp,
+                                     @RequestParam(value = "rpcPort", required = true) String rpcPort,
+                                     @RequestParam(value = "rpcUser", required = true) String rpcUser,
+                                     @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
+                                     @RequestParam(value = "assetIdentifier", required = true) String assetIdentifier) {
+        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!varifyResult.isResult()) {//if varify failed
+            return GSonUtil.getInstance().object2Json(varifyResult);
+        }
+        if (assetIdentifier == null || assetIdentifier.trim().isEmpty()) {
+            LOGGER.error("assetIdentifier is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("assetIdentifier is null", false));
+        }
+        CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
+        return AssetUtil.getInstance().subscribeAsset(cm, assetIdentifier.trim());
+    }
 
     /**
      * @param hostIp
@@ -434,6 +452,160 @@ public class MultichainController {
         return PermissionGrantUtil.getInstance().getBlockChainNodeWalletAddressesPermissions(cm, wallletAddresses.trim(), permissionIdentifier.trim(), Boolean.valueOf(verbose.trim()));
     }
 
+    @RequestMapping(value = "/getAssetInfoForm", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
+    @ResponseBody
+    public String getAssetInfo(@RequestParam(value = "hostIp", required = true) String hostIp,
+                               @RequestParam(value = "rpcPort", required = true) String rpcPort,
+                               @RequestParam(value = "rpcUser", required = true) String rpcUser,
+                               @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
+                               @RequestParam(value = "assetIdentifier", required = true) String assetIdentifier,
+                               @RequestParam(value = "verbose", required = true) String verbose) {
+        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!varifyResult.isResult()) {//if varify failed
+            return GSonUtil.getInstance().object2Json(varifyResult);
+        }
+        if (assetIdentifier == null || assetIdentifier.trim().isEmpty()) {
+            LOGGER.error("assetIdentifier is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("assetIdentifier is null", false));
+        }
+        if (verbose == null || verbose.trim().isEmpty()) {
+            LOGGER.error("verbose is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("verbose is null", false));
+        }
+        if (!verbose.trim().equalsIgnoreCase("true") && !verbose.trim().equalsIgnoreCase("false")) {
+            LOGGER.error(verbose + " is not a valid boolean value");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult(verbose + " is not a valid boolean value", false));
+        }
+        CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
+        return AssetUtil.getInstance().getAssetInfo(cm, assetIdentifier, verbose.trim());
+    }
+
+    /**
+     * Action is not supported under these blockchain parameters or runtime parameters
+     * By default Accounts are not supported with scalable wallet - if you need getassetbalances, run multichaind -walletdbversion=1 -rescan, but the wallet will perform worse
+     * command : multichaind testChain -datadir=/home/multichain-testmasternode/data/ -walletdbversion=1 -rescan
+     *
+     * @param hostIp
+     * @param rpcPort
+     * @param rpcUser
+     * @param rpcUserPwd
+     * @param assetIdentifier
+     * @param verbose
+     * @return
+     */
+    @RequestMapping(value = "/getAssetBalancesForm", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
+    @ResponseBody
+    public String getAssetBalances(@RequestParam(value = "hostIp", required = true) String hostIp,
+                                   @RequestParam(value = "rpcPort", required = true) String rpcPort,
+                                   @RequestParam(value = "rpcUser", required = true) String rpcUser,
+                                   @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
+                                   @RequestParam(value = "assetIdentifier", required = true) String assetIdentifier,
+                                   @RequestParam(value = "verbose", required = true) String verbose) {
+        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!varifyResult.isResult()) {//if varify failed
+            return GSonUtil.getInstance().object2Json(varifyResult);
+        }
+        if (assetIdentifier == null || assetIdentifier.trim().isEmpty()) {
+            LOGGER.error("assetIdentifier is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("assetIdentifier is null", false));
+        }
+        if (verbose == null || verbose.trim().isEmpty()) {
+            LOGGER.error("verbose is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("verbose is null", false));
+        }
+        if (!verbose.trim().equalsIgnoreCase("true") && !verbose.trim().equalsIgnoreCase("false")) {
+            LOGGER.error(verbose + " is not a valid boolean value");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult(verbose + " is not a valid boolean value", false));
+        }
+        CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
+        return AssetUtil.getInstance().getAssetBalances(cm, assetIdentifier, verbose.trim());
+    }
+
+    /**
+     * Retrieves a single specific transaction txid involving asset, passed as an asset name, ref or issuance txid, to which the node must be subscribed
+     *
+     * @param hostIp
+     * @param rpcPort
+     * @param rpcUser
+     * @param rpcUserPwd
+     * @param assetIdentifier
+     * @param txid
+     * @param verbose
+     * @return
+     */
+    @RequestMapping(value = "/getAssettransactionForm", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
+    @ResponseBody
+    public String getAssettransactionForm(@RequestParam(value = "hostIp", required = true) String hostIp,
+                                          @RequestParam(value = "rpcPort", required = true) String rpcPort,
+                                          @RequestParam(value = "rpcUser", required = true) String rpcUser,
+                                          @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
+                                          @RequestParam(value = "assetIdentifier", required = true) String assetIdentifier,
+                                          @RequestParam(value = "txid", required = true) String txid,
+                                          @RequestParam(value = "verbose", required = true) String verbose) {
+        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!varifyResult.isResult()) {//if varify failed
+            return GSonUtil.getInstance().object2Json(varifyResult);
+        }
+        if (assetIdentifier == null || assetIdentifier.trim().isEmpty()) {
+            LOGGER.error("assetIdentifier is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("assetIdentifier is null", false));
+        }
+        if (txid == null || txid.trim().isEmpty()) {
+            LOGGER.error("txid is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("txid is null", false));
+        }
+        //txid should be hexadecimal
+
+
+        if (verbose == null || verbose.trim().isEmpty()) {
+            LOGGER.error("verbose is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("verbose is null", false));
+        }
+        if (!verbose.trim().equalsIgnoreCase("true") && !verbose.trim().equalsIgnoreCase("false")) {
+            LOGGER.error(verbose + " is not a valid boolean value");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult(verbose + " is not a valid boolean value", false));
+        }
+        CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
+        return AssetUtil.getInstance().getassettransaction(cm, assetIdentifier, txid, verbose.trim());
+    }
+
+    @RequestMapping(value = "/listAssetTransactionsForm", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
+    @ResponseBody
+    public String listAssetTransactionsForm(@RequestParam(value = "hostIp", required = true) String hostIp,
+                                            @RequestParam(value = "rpcPort", required = true) String rpcPort,
+                                            @RequestParam(value = "rpcUser", required = true) String rpcUser,
+                                            @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
+                                            @RequestParam(value = "assetIdentifier", required = true) String assetIdentifier,
+                                            @RequestParam(value = "verbose", required = true) String verbose,
+                                            @RequestParam(value = "count", required = true) String count) {
+        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!varifyResult.isResult()) {//if varify failed
+            return GSonUtil.getInstance().object2Json(varifyResult);
+        }
+        if (assetIdentifier == null || assetIdentifier.trim().isEmpty()) {
+            LOGGER.error("assetIdentifier is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("assetIdentifier is null", false));
+        }
+        if (verbose == null || verbose.trim().isEmpty()) {
+            LOGGER.error("verbose is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("verbose is null", false));
+        }
+        if (!verbose.trim().equalsIgnoreCase("true") && !verbose.trim().equalsIgnoreCase("false")) {
+            LOGGER.error(verbose + " is not a valid boolean value");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult(verbose + " is not a valid boolean value", false));
+        }
+        if (count == null || count.trim().isEmpty()) {
+            LOGGER.error("count is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("count is null", false));
+        }
+        if (!CommonUtil.getInstance().isInteger(count.trim())) {
+            LOGGER.error(count + " is not a valid number");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult(count + " is not a valid number", false));
+        }
+        CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
+        return AssetUtil.getInstance().listAssetTransactions(cm, assetIdentifier, verbose.trim(), Integer.parseInt(count.trim()));
+    }
+
 
     /**
      * @param hostIp
@@ -447,13 +619,27 @@ public class MultichainController {
     public String listBalanceAssetsForm(@RequestParam(value = "hostIp", required = true) String hostIp,
                                         @RequestParam(value = "rpcPort", required = true) String rpcPort,
                                         @RequestParam(value = "rpcUser", required = true) String rpcUser,
-                                        @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd) {
+                                        @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
+                                        @RequestParam(value = "assets", required = true) String assets,
+                                        @RequestParam(value = "verbose", required = true) String verbose) {
         MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
         if (!varifyResult.isResult()) {//if varify failed
             return GSonUtil.getInstance().object2Json(varifyResult);
         }
+        if (assets == null || assets.trim().isEmpty()) {
+            LOGGER.error("assets is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("assets is null", false));
+        }
+        if (verbose == null || verbose.trim().isEmpty()) {
+            LOGGER.error("verbose is null");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult("verbose is null", false));
+        }
+        if (!verbose.trim().equalsIgnoreCase("true") && !verbose.trim().equalsIgnoreCase("false")) {
+            LOGGER.error(verbose + " is not a valid boolean value");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult(verbose + " is not a valid boolean value", false));
+        }
         CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
-        return AssetUtil.getInstance().listBalanceAssets(cm);
+        return AssetUtil.getInstance().listBalanceAssets(cm, assets, verbose);
     }
 
     /**
