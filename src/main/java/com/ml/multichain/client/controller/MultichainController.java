@@ -124,6 +124,20 @@ public class MultichainController {
         return BlockInfoUtil.getInstance().getBlockHash(cm, blockHeight);
     }
 
+    @RequestMapping(value = "/getMempoolInfoForm", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
+    @ResponseBody
+    public String getMempoolInfoForm(@RequestParam(value = "hostIp", required = true) String hostIp,
+                                   @RequestParam(value = "rpcPort", required = true) String rpcPort,
+                                   @RequestParam(value = "rpcUser", required = true) String rpcUser,
+                                   @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd) {
+        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!varifyResult.isResult()) {//if varify failed
+            return GSonUtil.getInstance().object2Json(varifyResult);
+        }
+        CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
+        return BlockChainUtil.getInstance().getMempoolInfo(cm);
+    }
+
     /**
      * Returns information about the blocks specified, on the active chain only. The blocks parameter can contain a comma-delimited list or
      * array of block heights, hashes, height ranges (e.g. 100-200) or -n for the most recent n blocks

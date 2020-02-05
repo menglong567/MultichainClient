@@ -5,6 +5,7 @@ import multichain.command.CommandElt;
 import multichain.command.CommandManager;
 import multichain.command.MultichainException;
 import multichain.object.Address;
+import multichain.object.MemPoolInfo;
 import multichain.object.PeerInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -131,5 +132,21 @@ public class BlockChainUtil {
             return GSonUtil.getInstance().object2Json(new MultichainOperationResult(e.getMessage(), false));
         }
         return GSonUtil.getInstance().object2Json(peerInfos);
+    }
+
+    /**
+     * @param cm
+     * @return
+     */
+    public String getMempoolInfo(CommandManager cm) {
+        MemPoolInfo memPoolInfo = null;
+        try {
+            memPoolInfo = (MemPoolInfo) cm.invoke(CommandElt.GETMEMPOOLINFO);
+        } catch (MultichainException e) {
+            e.printStackTrace();
+            //should return meaningful message to the front-end
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult(e.getMessage(), false));
+        }
+        return GSonUtil.getInstance().object2Json(memPoolInfo);
     }
 }
