@@ -4,10 +4,7 @@ import com.ml.multichain.client.model.MultichainOperationResult;
 import multichain.command.CommandElt;
 import multichain.command.CommandManager;
 import multichain.command.MultichainException;
-import multichain.object.Address;
-import multichain.object.MemPoolInfo;
-import multichain.object.NetworkInfo;
-import multichain.object.PeerInfo;
+import multichain.object.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,6 +48,22 @@ public class BlockChainUtil {
      * @param cm
      * @return
      */
+    public String getNewWalletAddress(CommandManager cm) {
+        String result = null;
+        try {
+            result = (String) cm.invoke(CommandElt.GETNEWADDRESS);
+        } catch (MultichainException e) {
+            e.printStackTrace();
+            //should return meaningful message to the front-end
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult(e.getMessage(), false));
+        }
+        return GSonUtil.getInstance().object2Json(result);
+    }
+
+    /**
+     * @param cm
+     * @return
+     */
     public String getBlockchainParams(CommandManager cm) {
         HashMap<String, String> result = null;
         try {
@@ -62,6 +75,23 @@ public class BlockChainUtil {
         }
         return GSonUtil.getInstance().object2Json(result);
     }
+
+    /**
+     * @param cm
+     * @return
+     */
+    public String getRuntimeParas(CommandManager cm) {
+        RuntimeParams result = null;
+        try {
+            result = (RuntimeParams) cm.invoke(CommandElt.GETRUNTIMEPARAMS);
+        } catch (MultichainException e) {
+            e.printStackTrace();
+            //should return meaningful message to the front-end
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult(e.getMessage(), false));
+        }
+        return GSonUtil.getInstance().object2Json(result);
+    }
+
 
     /**
      * @param hostIp

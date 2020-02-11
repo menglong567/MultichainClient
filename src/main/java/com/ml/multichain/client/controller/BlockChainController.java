@@ -79,6 +79,28 @@ public class BlockChainController {
         return BlockChainUtil.getInstance().getBlockchainParams(cm);
     }
 
+
+    /**
+     * @param hostIp
+     * @param rpcPort
+     * @param rpcUser
+     * @param rpcUserPwd
+     * @return
+     */
+    @RequestMapping(value = "/getRuntimeParamsForm", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
+    @ResponseBody
+    public String getRuntimeParamsForm(@RequestParam(value = "hostIp", required = true) String hostIp,
+                                       @RequestParam(value = "rpcPort", required = true) String rpcPort,
+                                       @RequestParam(value = "rpcUser", required = true) String rpcUser,
+                                       @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd) {
+        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!varifyResult.isResult()) {//if varify failed
+            return GSonUtil.getInstance().object2Json(varifyResult);
+        }
+        CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
+        return BlockChainUtil.getInstance().getRuntimeParas(cm);
+    }
+
     /**
      * 获取节点钱包地址
      *
@@ -100,6 +122,27 @@ public class BlockChainController {
         }
         CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
         return BlockChainUtil.getInstance().getBlockChainWalletAddresses(cm);
+    }
+
+    /**
+     * @param hostIp
+     * @param rpcPort
+     * @param rpcUser
+     * @param rpcUserPwd
+     * @return
+     */
+    @RequestMapping(value = "/getNewWalletAddressForm", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
+    @ResponseBody
+    public String getNewWalletAddressForm(@RequestParam(value = "hostIp", required = true) String hostIp,
+                                          @RequestParam(value = "rpcPort", required = true) String rpcPort,
+                                          @RequestParam(value = "rpcUser", required = true) String rpcUser,
+                                          @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd) {
+        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!varifyResult.isResult()) {//if varify failed
+            return GSonUtil.getInstance().object2Json(varifyResult);
+        }
+        CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
+        return BlockChainUtil.getInstance().getNewWalletAddress(cm);
     }
 
     /**
