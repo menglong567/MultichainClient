@@ -146,6 +146,27 @@ public class BlockChainController {
     }
 
     /**
+     * @param hostIp
+     * @param rpcPort
+     * @param rpcUser
+     * @param rpcUserPwd
+     * @return
+     */
+    @RequestMapping(value = "/getWalletInfoForm", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
+    @ResponseBody
+    public String getWalletInfoForm(@RequestParam(value = "hostIp", required = true) String hostIp,
+                                    @RequestParam(value = "rpcPort", required = true) String rpcPort,
+                                    @RequestParam(value = "rpcUser", required = true) String rpcUser,
+                                    @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd) {
+        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!varifyResult.isResult()) {//if varify failed
+            return GSonUtil.getInstance().object2Json(varifyResult);
+        }
+        CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
+        return BlockChainUtil.getInstance().getWalletInfo(cm);
+    }
+
+    /**
      * 获取节点的peer节点信息
      *
      * @param hostIp

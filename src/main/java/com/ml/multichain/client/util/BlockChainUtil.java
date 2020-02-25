@@ -64,6 +64,22 @@ public class BlockChainUtil {
      * @param cm
      * @return
      */
+    public String getWalletInfo(CommandManager cm) {
+        WalletInfo walletInfo = null;
+        try {
+            walletInfo = (WalletInfo) cm.invoke(CommandElt.GETWALLETINFO);
+        } catch (MultichainException e) {
+            e.printStackTrace();
+            //should return meaningful message to the front-end
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult(e.getMessage(), false));
+        }
+        return GSonUtil.getInstance().object2Json(walletInfo);
+    }
+
+    /**
+     * @param cm
+     * @return
+     */
     public String getBlockchainParams(CommandManager cm) {
         HashMap<String, String> result = null;
         try {
