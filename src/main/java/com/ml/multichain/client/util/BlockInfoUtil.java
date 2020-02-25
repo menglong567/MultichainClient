@@ -37,7 +37,7 @@ public class BlockInfoUtil {
         // multichainrpc and 73oYQWzx45h... are login and password to access to RPC commands, values can be found in the file multichain.conf
         Block block = null;
         try {
-            block = (Block) cm.invoke(CommandElt.GETBLOCK, height);
+            block = (Block) cm.invoke(CommandElt.GETBLOCK, Long.parseLong(height));
         } catch (MultichainException e) {
             e.printStackTrace();
             return GSonUtil.getInstance().object2Json(new MultichainOperationResult(e.getMessage(), false));

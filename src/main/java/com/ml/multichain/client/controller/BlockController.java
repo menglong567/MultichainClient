@@ -7,20 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author mengl
+ */
 @RestController
 public class BlockController {
     private static Logger LOGGER = LoggerFactory.getLogger(BlockController.class);
-
-    @RequestMapping(value = "/getBlockInfo/{height}", method = RequestMethod.GET)
-    @ResponseBody
-    public String getBlockInfo(@PathVariable String height) {
-        if (!CommonUtil.getInstance().isInteger(height.trim())) {//not a valid number
-            LOGGER.error(height + " is not a valid number");
-            return height + " is not a valid number";
-        }
-        CommandManager cm = CommandManagerUtil.getInstance().getCommandManager("192.168.1.105", "31005", "multichainrpc", "DaWnto6QrqL1fgFshxHLAXcYcmULR9F7c8qAsAaiQdcB");
-        return BlockInfoUtil.getInstance().getBlockInfo(cm, "1");
-    }
 
     /**
      * 获取block info
@@ -47,9 +39,9 @@ public class BlockController {
             LOGGER.error("blockHeight is null");
             return GSonUtil.getInstance().object2Json(new MultichainOperationResult("blockHeight is null", false));
         }
-        if (!CommonUtil.getInstance().isInteger(blockHeight.trim())) {//not a valid number
-            LOGGER.error(blockHeight + " is not a valid number");
-            return GSonUtil.getInstance().object2Json(new MultichainOperationResult(blockHeight + " is not a valid number", false));
+        if (!CommonUtil.getInstance().isValidLong(blockHeight.trim())) {//not a valid number
+            LOGGER.error(blockHeight + " is not a valid long");
+            return GSonUtil.getInstance().object2Json(new MultichainOperationResult(blockHeight + " is not a valid long", false));
         }
         CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
         return BlockInfoUtil.getInstance().getBlockInfo(cm, blockHeight.trim());
