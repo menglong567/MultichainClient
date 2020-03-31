@@ -31,9 +31,9 @@ public class BlockController {
                                    @RequestParam(value = "rpcUser", required = true) String rpcUser,
                                    @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
                                    @RequestParam(value = "blockHeight", required = true) String blockHeight) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (blockHeight == null || blockHeight.isEmpty()) {
             LOGGER.error("blockHeight is null");
@@ -60,9 +60,9 @@ public class BlockController {
                                     @RequestParam(value = "rpcPort", required = true) String rpcPort,
                                     @RequestParam(value = "rpcUser", required = true) String rpcUser,
                                     @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
         return BlockInfoUtil.getInstance().getBlockCount(cm);
@@ -83,9 +83,9 @@ public class BlockController {
                                        @RequestParam(value = "rpcPort", required = true) String rpcPort,
                                        @RequestParam(value = "rpcUser", required = true) String rpcUser,
                                        @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
         return BlockInfoUtil.getInstance().getLastBlockInfo(cm);
@@ -106,9 +106,9 @@ public class BlockController {
                                    @RequestParam(value = "rpcUser", required = true) String rpcUser,
                                    @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
                                    @RequestParam(value = "blockHeight", required = true) String blockHeight) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (blockHeight == null || blockHeight.isEmpty()) {
             LOGGER.error("blockHeight is null");
@@ -143,9 +143,9 @@ public class BlockController {
                                  @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
                                  @RequestParam(value = "blockIdentifiers", required = true) String blockIdentifiers,
                                  @RequestParam(value = "verbose", required = true) String verbose) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (blockIdentifiers == null || blockIdentifiers.isEmpty()) {
             LOGGER.error("blockIdentifiers is null");

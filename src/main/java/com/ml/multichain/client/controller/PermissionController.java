@@ -36,9 +36,9 @@ public class PermissionController {
                                             @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
                                             @RequestParam(value = "walletAddress", required = true) String walletAddress,
                                             @RequestParam(value = "permissionIdentifier", required = true) String permissionIdentifier) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (walletAddress == null || walletAddress.trim().isEmpty()) {
             LOGGER.error("walletAddress is null");
@@ -71,9 +71,9 @@ public class PermissionController {
                                             @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
                                             @RequestParam(value = "walletAddress", required = true) String walletAddress,
                                             @RequestParam(value = "permissionIdentifier", required = true) String permissionIdentifier) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (walletAddress == null || walletAddress.trim().isEmpty()) {
             LOGGER.error("walletAddress is null");
@@ -102,9 +102,9 @@ public class PermissionController {
                                            @RequestParam(value = "rpcUser", required = true) String rpcUser,
                                            @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
                                            @RequestParam(value = "permissionIdentifier", required = true) String permissionIdentifier) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (permissionIdentifier == null || permissionIdentifier.trim().isEmpty()) {
             LOGGER.error("permissionIdentifier is null");
@@ -135,9 +135,9 @@ public class PermissionController {
                                                                   @RequestParam(value = "wallletAddresses", required = true) String wallletAddresses,
                                                                   @RequestParam(value = "permissionIdentifier", required = true) String permissionIdentifier,
                                                                   @RequestParam(value = "verbose", required = true) String verbose) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (wallletAddresses == null || wallletAddresses.trim().isEmpty()) {
             LOGGER.error("wallletAddresses is null");

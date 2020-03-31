@@ -116,7 +116,7 @@ public class BlockChainUtil {
      * @param rpcUserPwd
      * @return
      */
-    public MultichainOperationResult varifyConnectionParameters(String hostIp, String rpcPort, String rpcUser, String rpcUserPwd) {
+    public MultichainOperationResult verifyConnectionParameters(String hostIp, String rpcPort, String rpcUser, String rpcUserPwd) {
         if (hostIp == null || hostIp.trim().isEmpty()) {
             LOGGER.error("hostIp is null");
             return new MultichainOperationResult("hostIp is null", false);

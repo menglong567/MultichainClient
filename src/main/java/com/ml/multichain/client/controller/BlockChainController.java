@@ -29,9 +29,9 @@ public class BlockChainController {
                                      @RequestParam(value = "rpcPort", required = true) String rpcPort,
                                      @RequestParam(value = "rpcUser", required = true) String rpcUser,
                                      @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
         return BlockChainUtil.getInstance().getMempoolInfo(cm);
@@ -50,9 +50,9 @@ public class BlockChainController {
                                      @RequestParam(value = "rpcPort", required = true) String rpcPort,
                                      @RequestParam(value = "rpcUser", required = true) String rpcUser,
                                      @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
         return BlockChainUtil.getInstance().getNetworkInfo(cm);
@@ -71,9 +71,9 @@ public class BlockChainController {
                                           @RequestParam(value = "rpcPort", required = true) String rpcPort,
                                           @RequestParam(value = "rpcUser", required = true) String rpcUser,
                                           @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
         return BlockChainUtil.getInstance().getBlockchainParams(cm);
@@ -93,9 +93,9 @@ public class BlockChainController {
                                        @RequestParam(value = "rpcPort", required = true) String rpcPort,
                                        @RequestParam(value = "rpcUser", required = true) String rpcUser,
                                        @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
         return BlockChainUtil.getInstance().getRuntimeParas(cm);
@@ -116,9 +116,9 @@ public class BlockChainController {
                                                        @RequestParam(value = "rpcPort", required = true) String rpcPort,
                                                        @RequestParam(value = "rpcUser", required = true) String rpcUser,
                                                        @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
         return BlockChainUtil.getInstance().getBlockChainWalletAddresses(cm);
@@ -137,9 +137,9 @@ public class BlockChainController {
                                           @RequestParam(value = "rpcPort", required = true) String rpcPort,
                                           @RequestParam(value = "rpcUser", required = true) String rpcUser,
                                           @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
         return BlockChainUtil.getInstance().getNewWalletAddress(cm);
@@ -158,9 +158,9 @@ public class BlockChainController {
                                     @RequestParam(value = "rpcPort", required = true) String rpcPort,
                                     @RequestParam(value = "rpcUser", required = true) String rpcUser,
                                     @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
         return BlockChainUtil.getInstance().getWalletInfo(cm);
@@ -181,9 +181,9 @@ public class BlockChainController {
                                   @RequestParam(value = "rpcPort", required = true) String rpcPort,
                                   @RequestParam(value = "rpcUser", required = true) String rpcUser,
                                   @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
         return BlockChainUtil.getInstance().getPeerInfo(cm);
@@ -204,9 +204,9 @@ public class BlockChainController {
                                         @RequestParam(value = "rpcPort", required = true) String rpcPort,
                                         @RequestParam(value = "rpcUser", required = true) String rpcUser,
                                         @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
         return BlockChainUtil.getInstance().getBlockChainInfo(cm);

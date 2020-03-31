@@ -33,9 +33,9 @@ public class StreamController {
                                    @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
                                    @RequestParam(value = "streamIdentifiers", required = true) String streamIdentifiers,
                                    @RequestParam(value = "verbose", required = true) String verbose) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (streamIdentifiers == null || streamIdentifiers.isEmpty()) {
             LOGGER.error("streamIdentifiers is null");
@@ -71,9 +71,9 @@ public class StreamController {
                                      @RequestParam(value = "streamidentifier", required = true) String streamidentifier,
                                      @RequestParam(value = "verbose", required = true) String verbose,
                                      @RequestParam(value = "limit", required = true) String limit) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (streamidentifier == null || streamidentifier.isEmpty()) {
             LOGGER.error("streamidentifier is null");
@@ -113,9 +113,9 @@ public class StreamController {
                                     @RequestParam(value = "rpcUser", required = true) String rpcUser,
                                     @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
                                     @RequestParam(value = "streamidentifier", required = true) String streamidentifier) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (streamidentifier == null || streamidentifier.isEmpty()) {
             LOGGER.error("streamidentifier is null");
@@ -144,9 +144,9 @@ public class StreamController {
                                       @RequestParam(value = "streamidentifier", required = true) String streamidentifier,
                                       @RequestParam(value = "key", required = true) String key,
                                       @RequestParam(value = "value", required = true) String value) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (streamidentifier == null || streamidentifier.trim().isEmpty()) {
             LOGGER.error("streamidentifier is null");
@@ -184,9 +184,9 @@ public class StreamController {
                                    @RequestParam(value = "rpcUser", required = true) String rpcUser,
                                    @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
                                    @RequestParam(value = "streamName", required = true) String streamName) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (streamName == null || streamName.trim().isEmpty()) {
             LOGGER.error("streamName is null");
@@ -213,9 +213,9 @@ public class StreamController {
                                       @RequestParam(value = "rpcUser", required = true) String rpcUser,
                                       @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
                                       @RequestParam(value = "streamidentifier", required = true) String streamidentifier) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (streamidentifier == null || streamidentifier.trim().isEmpty()) {
             LOGGER.error("streamidentifier is null");

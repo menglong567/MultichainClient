@@ -21,9 +21,9 @@ public class AssetController {
                                      @RequestParam(value = "rpcUser", required = true) String rpcUser,
                                      @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
                                      @RequestParam(value = "assetIdentifier", required = true) String assetIdentifier) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (assetIdentifier == null || assetIdentifier.trim().isEmpty()) {
             LOGGER.error("assetIdentifier is null");
@@ -41,9 +41,9 @@ public class AssetController {
                                @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
                                @RequestParam(value = "assetIdentifier", required = true) String assetIdentifier,
                                @RequestParam(value = "verbose", required = true) String verbose) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (assetIdentifier == null || assetIdentifier.trim().isEmpty()) {
             LOGGER.error("assetIdentifier is null");
@@ -82,9 +82,9 @@ public class AssetController {
                                    @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
                                    @RequestParam(value = "assetIdentifier", required = true) String assetIdentifier,
                                    @RequestParam(value = "verbose", required = true) String verbose) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (assetIdentifier == null || assetIdentifier.trim().isEmpty()) {
             LOGGER.error("assetIdentifier is null");
@@ -123,9 +123,9 @@ public class AssetController {
                                           @RequestParam(value = "assetIdentifier", required = true) String assetIdentifier,
                                           @RequestParam(value = "txid", required = true) String txid,
                                           @RequestParam(value = "verbose", required = true) String verbose) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (assetIdentifier == null || assetIdentifier.trim().isEmpty()) {
             LOGGER.error("assetIdentifier is null");
@@ -159,9 +159,9 @@ public class AssetController {
                                             @RequestParam(value = "assetIdentifier", required = true) String assetIdentifier,
                                             @RequestParam(value = "verbose", required = true) String verbose,
                                             @RequestParam(value = "count", required = true) String count) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (assetIdentifier == null || assetIdentifier.trim().isEmpty()) {
             LOGGER.error("assetIdentifier is null");
@@ -202,9 +202,9 @@ public class AssetController {
                                         @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
                                         @RequestParam(value = "assets", required = true) String assets,
                                         @RequestParam(value = "verbose", required = true) String verbose) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (assets == null || assets.trim().isEmpty()) {
             LOGGER.error("assets is null");
@@ -239,9 +239,9 @@ public class AssetController {
                                                @RequestParam(value = "rpcUser", required = true) String rpcUser,
                                                @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd,
                                                @RequestParam(value = "walletAddress", required = true) String walletAddress) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (walletAddress == null || walletAddress.trim().isEmpty()) {
             LOGGER.error("walletAddress is null");
@@ -266,9 +266,9 @@ public class AssetController {
                                        @RequestParam(value = "rpcPort", required = true) String rpcPort,
                                        @RequestParam(value = "rpcUser", required = true) String rpcUser,
                                        @RequestParam(value = "rpcUserPwd", required = true) String rpcUserPwd) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         CommandManager cm = CommandManagerUtil.getInstance().getCommandManager(hostIp.trim(), rpcPort.trim(), rpcUser.trim(), rpcUserPwd.trim());
         return AssetUtil.getInstance().getTotalBalances(cm);
@@ -293,9 +293,9 @@ public class AssetController {
                                                @RequestParam(value = "walletAddress", required = true) String walletAddress,
                                                @RequestParam(value = "assetIdentifier", required = true) String assetIdentifier,
                                                @RequestParam(value = "amount", required = true) String amount) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (walletAddress == null || walletAddress.trim().isEmpty()) {
             LOGGER.error("walletAddress is null");
@@ -342,9 +342,9 @@ public class AssetController {
                                   @RequestParam(value = "units", required = true) String units,
                                   @RequestParam(value = "open", required = true) String open,
                                   @RequestParam(value = "restrict", required = true) String restrict) {
-        MultichainOperationResult varifyResult = BlockChainUtil.getInstance().varifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
-        if (!varifyResult.isResult()) {//if varify failed
-            return GSonUtil.getInstance().object2Json(varifyResult);
+        MultichainOperationResult verifyResult = BlockChainUtil.getInstance().verifyConnectionParameters(hostIp, rpcPort, rpcUser, rpcUserPwd);
+        if (!verifyResult.isResult()) {//if verify failed
+            return GSonUtil.getInstance().object2Json(verifyResult);
         }
         if (wallletAddress == null || wallletAddress.trim().isEmpty()) {
             LOGGER.error("wallletAddress is null");
