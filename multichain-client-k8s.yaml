@@ -46,7 +46,7 @@ spec:
               name: log
           env:
             - name: APP_NAME
-              value: "multichainclient-server"  #the service name registered in eureka
+              value: "multichainclient-server"
             - name: server.port
               value: "9081"
           resources:
