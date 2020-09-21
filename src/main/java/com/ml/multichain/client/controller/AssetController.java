@@ -14,6 +14,15 @@ import org.springframework.web.bind.annotation.*;
 public class AssetController {
     private static Logger LOGGER = LoggerFactory.getLogger(AssetController.class);
 
+    /****
+     * subscribe to an asset
+     * @param hostIp
+     * @param rpcPort
+     * @param rpcUser
+     * @param rpcUserPwd
+     * @param assetIdentifier
+     * @return
+     */
     @RequestMapping(value = "/subscribeAssetForm", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
     @ResponseBody
     public String subscribeAssetForm(@RequestParam(value = "hostIp", required = true) String hostIp,
@@ -33,6 +42,16 @@ public class AssetController {
         return AssetUtil.getInstance().subscribeAsset(cm, assetIdentifier.trim());
     }
 
+    /****
+     * get the asset info
+     * @param hostIp
+     * @param rpcPort
+     * @param rpcUser
+     * @param rpcUserPwd
+     * @param assetIdentifier
+     * @param verbose
+     * @return
+     */
     @RequestMapping(value = "/getAssetInfoForm", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
     @ResponseBody
     public String getAssetInfo(@RequestParam(value = "hostIp", required = true) String hostIp,
@@ -150,6 +169,17 @@ public class AssetController {
         return AssetUtil.getInstance().getassettransaction(cm, assetIdentifier, txid, verbose.trim());
     }
 
+    /****
+     * list the asset related transactions
+     * @param hostIp
+     * @param rpcPort
+     * @param rpcUser
+     * @param rpcUserPwd
+     * @param assetIdentifier
+     * @param verbose
+     * @param count
+     * @return
+     */
     @RequestMapping(value = "/listAssetTransactionsForm", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
     @ResponseBody
     public String listAssetTransactionsForm(@RequestParam(value = "hostIp", required = true) String hostIp,
